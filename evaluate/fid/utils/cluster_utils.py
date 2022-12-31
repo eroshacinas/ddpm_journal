@@ -3,6 +3,8 @@ from clustimage import Clustimage
 import glob
 import os
 import matplotlib.pyplot as plt
+import shutil
+
 
 #load file paths in folder and return a list
 
@@ -104,3 +106,38 @@ def separate_paths(pathlist, real_dir, generated_dir):
 
   
   return real_image_pathlist, generated_image_pathlist
+
+
+
+def copy_files(source_dir, target_dir, file_type='*'): #file type = just extension of target file, e.g.: .txt .jpg etc.
+  print("Copying target files...")
+  #make target dir if it doesnt exist
+  os.makedirs(target_dir, exist_ok=True)
+
+  #get path of all target files in the folder
+  if type(source_dir) == list:
+    file_dir_list = source_dir
+    print("source_dir already a list, continuing execution...")
+
+  elif file_type == '*':
+    file_dir_list = glob.glob(os.path.join(source_dir, '*')) #return directory of all files found in source_dir
+
+
+  else:
+    file_dir_list = glob.glob(os.path.join(source_dir, '*.' + file_type)) #source_dir/*.jpg or source_dir/*.txt
+
+
+  for i in range(len(file_dir_list)):
+    shutil.copy(file_dir_list[i], target_dir)
+
+  print("All target files copied to target directory")
+
+
+def delete_folder(path):
+  if os.path.exists(path):
+    shutil.rmtree(path)
+
+  else:
+    print("path doesnt exist")
+
+  print("%s deleted" % path)

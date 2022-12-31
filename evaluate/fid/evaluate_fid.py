@@ -105,3 +105,16 @@ class Gan_Evaluator():
     print('FID (different): %.3f' % fid)
 
     return fid
+
+
+
+def crop_single_image(path, target_size):
+  from PIL import Image
+  import os
+  import numpy as np
+
+  imgPrime = Image.open(path)
+  imgPrime = imgPrime.crop((0,0, target_size, target_size)) #crop image 
+  img = np.array(imgPrime) #convert back to numpy image
+
+  return img
