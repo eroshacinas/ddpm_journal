@@ -4,7 +4,7 @@ import glob
 import os
 import matplotlib.pyplot as plt
 import shutil
-
+import numpy as np
 
 #load file paths in folder and return a list
 
